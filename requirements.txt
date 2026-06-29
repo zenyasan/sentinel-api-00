@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+anthropic
+typer
+httpx
+rich
+python-dotenv
+passlib[bcrypt]
+slowapi
+pytest
+pytest-asyncio
