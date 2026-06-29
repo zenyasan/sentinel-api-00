@@ -4,6 +4,9 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
+# シークレット直書き（意図的な脆弱実装）
+SECRET_KEY = "unsafe_hardcoded_key_for_demo"
+
 USERS = {}
 
 
