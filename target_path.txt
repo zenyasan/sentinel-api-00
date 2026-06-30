@@ -1,0 +1,5 @@
+# ここに対象のFastAPIプロジェクトのフォルダパスを記載してください
+# 例（Windows）：C:\Users\you\projects\my_fastapi_app
+# 例（Mac）：/Users/you/projects/my_fastapi_app
+# #で始まる行はコメントとして無視されます
+
