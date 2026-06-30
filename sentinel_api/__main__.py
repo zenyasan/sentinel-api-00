@@ -1,5 +1,20 @@
 """CLIエントリポイント。typer を使用してコマンドを定義する。"""
 
+import sys
+
+# cp932など非UTF-8コンソール環境で絵文字を出力するとUnicodeEncodeErrorになるため
+# Console()生成前にstdout/stderrをUTF-8へ強制変換する
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+if hasattr(sys.stderr, "reconfigure"):
+    try:
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 import os
 from pathlib import Path
 

@@ -12,22 +12,22 @@ for /f "usebackq eol=# delims=" %%L in ("%_TMPFILE%") do (
 del "%_TMPFILE%" 2>nul
 
 if not defined TARGET_PATH (
-    echo target_path.txt ï¿½É‘ÎÛƒtï¿½Hï¿½ï¿½ï¿½_ï¿½Ìƒpï¿½Xï¿½ï¿½ï¿½Lï¿½Ú‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    echo target_path.txt ‚É‘ÎÛƒtƒHƒ‹ƒ_‚ÌƒpƒX‚ª‹LÚ‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ
     pause
     exit /b
 )
 
 if not exist "!TARGET_PATH!" (
-    echo ï¿½wï¿½è‚³ï¿½ê‚½ï¿½pï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½: !TARGET_PATH!
+    echo Žw’è‚³‚ê‚½ƒpƒX‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ: !TARGET_PATH!
     pause
     exit /b
 )
 
 set SENTINEL_MODEL=claude-sonnet-4-6
-echo Sonnetï¿½Å‚ÅŽï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½
+echo Sonnet ‚ÅŽÀs‚µ‚Ü‚·
 echo.
 python -m sentinel_api run "!TARGET_PATH!"
 
 echo.
-echo ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½BSECURITY_STATUS.md ï¿½ï¿½ï¿½mï¿½Fï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+echo Š®—¹‚µ‚Ü‚µ‚½BSECURITY_STATUS.md ‚ðŠm”F‚µ‚Ä‚­‚¾‚³‚¢
 pause
