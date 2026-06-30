@@ -5,3 +5,4 @@ __pycache__/
 *.egg-info/
 .sentinel_plan.json
 *.bak
+reports/*.md

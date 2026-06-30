@@ -56,7 +56,6 @@ def run(
         raise typer.Exit(1)
 
     plan_path = str(root / ".sentinel_plan.json")
-    report_path = str(root / "SECURITY_STATUS.md")
 
     # Phase 1: スキャン・計画
     console.print(f"🔍 スキャン中... {project_path}")
@@ -161,8 +160,8 @@ def run(
             )
 
     all_results = final_auto_results + manual_results
-    reporter.generate_report(all_results, output_path=report_path, install_results=install_results)
-    console.print(f"\n📝 レポートを生成しました → {report_path}")
+    generated_path = reporter.generate_report(all_results, project_path=project_path, install_results=install_results)
+    console.print(f"\n📝 レポートを生成しました → {generated_path}")
 
     patcher.cleanup(plan_path)
 
