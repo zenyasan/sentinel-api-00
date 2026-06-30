@@ -16,6 +16,7 @@ def generate_report(
     results: list[dict],
     output_path: str = "SECURITY_STATUS.md",
     install_results: list[dict] | None = None,
+    python_version_warning: str | None = None,
 ) -> None:
     """全項目の処理結果を受け取りMarkdownファイルを生成する。"""
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -51,6 +52,10 @@ def generate_report(
         f"生成日時：{now}",
         "",
     ]
+
+    if python_version_warning:
+        lines.append(python_version_warning)
+        lines.append("")
 
     lines.append("## ✅ 自動実装済み")
     if fixed or ok:

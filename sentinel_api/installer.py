@@ -52,13 +52,31 @@ def _is_installed(pkg: str) -> bool:
 
 
 def check_python_version() -> bool:
-    """Python 3.11以上かチェックする。未満の場合はrichで警告を表示してFalseを返す。"""
+    """Pythonバージョンが推奨範囲（3.11〜3.13）かチェックする。範囲外の場合は警告してFalseを返す。"""
     if sys.version_info < (3, 11):
         console.print(
             f"[yellow]⚠️  Python 3.11以上が必要です（現在: {sys.version.split()[0]}）[/yellow]"
         )
         return False
+    if sys.version_info >= (3, 14):
+        console.print(
+            f"[yellow]⚠️  Python 3.14以上ではanthropic SDKの動作が不安定になる可能性があります。"
+            f"Python 3.11〜3.13の使用を推奨します。（現在: {sys.version.split()[0]}）[/yellow]"
+        )
+        return False
     return True
+
+
+def get_python_version_warning() -> str | None:
+    """Pythonバージョンが推奨範囲外の場合、レポート用の警告文字列を返す。推奨範囲内はNoneを返す。"""
+    if sys.version_info < (3, 11) or sys.version_info >= (3, 14):
+        return (
+            f"## ⚠️ Python環境について\n"
+            f"現在の環境：Python {sys.version.split()[0]}\n"
+            f"推奨環境：Python 3.11〜3.13\n"
+            f"anthropic SDKの動作が不安定になる可能性があります。"
+        )
+    return None
 
 
 def check_and_install(requirements_path: str | None = None) -> list[dict]:

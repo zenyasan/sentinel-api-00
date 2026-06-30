@@ -1,14 +1,30 @@
 """installer.pyのテスト。"""
 
+import sys
 from pathlib import Path
+from unittest.mock import patch
 
 from sentinel_api import installer
 from sentinel_api.reporter import generate_report
 
 
-def test_check_python_version_returns_true():
-    """現在の環境（Python 3.11以上）でTrueを返すこと。"""
-    assert installer.check_python_version() is True
+def test_check_python_version_returns_true_for_311():
+    """Python 3.11〜3.13の場合にTrueを返すこと。"""
+    with patch.object(sys, "version_info", (3, 12, 0)):
+        assert installer.check_python_version() is True
+
+
+def test_check_python_version_returns_false_and_warns_for_314(capsys):
+    """Python 3.14以上の場合にFalseを返し、警告が出ること。"""
+    with patch.object(sys, "version_info", (3, 14, 0)):
+        result = installer.check_python_version()
+    assert result is False
+
+
+def test_check_python_version_returns_false_for_310():
+    """Python 3.11未満の場合にFalseを返すこと。"""
+    with patch.object(sys, "version_info", (3, 10, 0)):
+        assert installer.check_python_version() is False
 
 
 def test_check_and_install_already_installed(tmp_path):
