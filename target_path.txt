@@ -2,4 +2,4 @@
 # 例（Windows）：C:\Users\you\projects\my_fastapi_app
 # 例（Mac）：/Users/you/projects/my_fastapi_app
 # #で始まる行はコメントとして無視されます
-
+C:\Users\zenya\file_s\briven\sentinel-api-00\tests\fixtures\sample_app

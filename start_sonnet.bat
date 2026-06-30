@@ -2,29 +2,32 @@
 setlocal enabledelayedexpansion
 
 set TARGET_PATH=
-for /f "usebackq eol=# delims=" %%L in ("%~dp0target_path.txt") do (
+set "_TMPFILE=%TEMP%\sentinel_%RANDOM%.tmp"
+(type "%~dp0target_path.txt" & echo.) > "%_TMPFILE%"
+for /f "usebackq eol=# delims=" %%L in ("%_TMPFILE%") do (
     if not defined TARGET_PATH (
         set TARGET_PATH=%%L
     )
 )
+del "%_TMPFILE%" 2>nul
 
 if not defined TARGET_PATH (
-    echo target_path.txt ‚É‘ÎÛƒtƒHƒ‹ƒ_‚ÌƒpƒX‚ð‹LÚ‚µ‚Ä‚­‚¾‚³‚¢
+    echo target_path.txt ï¿½É‘ÎÛƒtï¿½Hï¿½ï¿½ï¿½_ï¿½Ìƒpï¿½Xï¿½ï¿½ï¿½Lï¿½Ú‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     pause
     exit /b
 )
 
 if not exist "!TARGET_PATH!" (
-    echo Žw’è‚³‚ê‚½ƒpƒX‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ: !TARGET_PATH!
+    echo ï¿½wï¿½è‚³ï¿½ê‚½ï¿½pï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½: !TARGET_PATH!
     pause
     exit /b
 )
 
 set SENTINEL_MODEL=claude-sonnet-4-6
-echo Sonnet”Å‚ÅŽÀs‚µ‚Ü‚·
+echo Sonnetï¿½Å‚ÅŽï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½
 echo.
 python -m sentinel_api run "!TARGET_PATH!"
 
 echo.
-echo Š®—¹‚µ‚Ü‚µ‚½BSECURITY_STATUS.md ‚ðŠm”F‚µ‚Ä‚­‚¾‚³‚¢
+echo ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½BSECURITY_STATUS.md ï¿½ï¿½ï¿½mï¿½Fï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 pause
