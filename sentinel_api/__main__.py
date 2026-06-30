@@ -6,7 +6,7 @@ from pathlib import Path
 import typer
 from rich.console import Console
 
-from sentinel_api import ai_client, patcher, reporter, scanner
+from sentinel_api import ai_client, installer, patcher, reporter, scanner
 
 app = typer.Typer()
 console = Console()
@@ -23,6 +23,10 @@ def run(
     dry_run: bool = typer.Option(False, "--dry-run", help="実際には書き込まず確認のみ"),
 ) -> None:
     """FastAPIプロジェクトにセキュリティ実装を自動追加する。"""
+    if not installer.check_python_version():
+        console.print("[yellow]⚠️  Python 3.11以上での実行を推奨します。続行します。[/yellow]")
+    install_results = installer.check_and_install()
+
     root = Path(project_path)
     if not root.exists():
         console.print(f"[red]エラー: パスが存在しません: {project_path}[/red]")
@@ -138,7 +142,7 @@ def run(
             )
 
     all_results = final_auto_results + manual_results
-    reporter.generate_report(all_results, output_path=report_path)
+    reporter.generate_report(all_results, output_path=report_path, install_results=install_results)
     console.print(f"\n📝 レポートを生成しました → {report_path}")
 
     patcher.cleanup(plan_path)
